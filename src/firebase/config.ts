@@ -1,17 +1,16 @@
 /** ============================================================
- *  FIREBASE — КОНФИГ
- *  Вставь сюда firebaseConfig из Firebase Console
- *  (Настройки проекта → Ваши приложения → Web-приложение).
- *  Пока поля пустые — приложение работает полностью локально.
+ *  FIREBASE — КОНФИГ (проект eng-quest-d7d36, отдельный от Хэзэнштейна)
+ *  Анонимный вход без логина; прогресс дублируется в Firestore
+ *  в документ progress/{deviceCode}.
  *  ============================================================ */
 
 export const FIREBASE_CONFIG = {
-  apiKey: '',            // ← сюда
-  authDomain: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: '',
-  appId: '',
+  apiKey: 'AIzaSyA3lnDTjHEDtoUs2IcgHwQR4KdujGqeJjA',
+  authDomain: 'eng-quest-d7d36.firebaseapp.com',
+  projectId: 'eng-quest-d7d36',
+  storageBucket: 'eng-quest-d7d36.firebasestorage.app',
+  messagingSenderId: '979604290250',
+  appId: '1:979604290250:web:f943b76a87dbfaa0285233',
 }
 
 export const cloudEnabled = Boolean(FIREBASE_CONFIG.apiKey)

@@ -9,6 +9,15 @@ import { WORDS } from '../lib/words'
 import { Btn, Card, Bar } from '../components/ui'
 import { Route } from '../App'
 
+/** Понятная расшифровка ошибок синхронизации */
+function syncErrorText(e: string): string {
+  if (/insufficient permissions|PERMISSION_DENIED/i.test(e))
+    return 'нет доступа к базе: в Firebase Console → Firestore → Rules вставь разрешающие правила (шаблон — в README репозитория)'
+  if (/permission-denied/i.test(e))
+    return 'нет доступа к базе: проверь правила Firestore (шаблон — в README репозитория)'
+  return e
+}
+
 export default function Settings({ go }: { go: (r: Route) => void }) {
   const s = useStore()
   const [restoreCode, setRestoreCode] = useState('')
@@ -62,10 +71,10 @@ export default function Settings({ go }: { go: (r: Route) => void }) {
         {cloudEnabled ? (
           <>
             <p className="mt-2 text-xs text-slate-500">
-              Статус: {syncState.status === 'ok' ? '✅ синхронизировано' : syncState.status === 'syncing' ? '⏳ синхронизация…' : syncState.status === 'error' ? `⚠️ ошибка: ${syncState.lastError}` : '…'}
+              Статус: {syncState.status === 'ok' ? '✅ синхронизировано' : syncState.status === 'syncing' ? '⏳ синхронизация…' : syncState.status === 'error' ? `⚠️ ${syncErrorText(syncState.lastError)}` : '…'}
               {s.cloudSyncedAt && ` · ${new Date(s.cloudSyncedAt).toLocaleTimeString('ru-RU')}`}
             </p>
-            <Btn variant="soft" className="mt-2 h-11 w-full" onClick={async () => { await pushNow(); setSyncMsg(syncState.status === 'ok' ? 'Сохранено в облако ✓' : `Ошибка: ${syncState.lastError}`) }}>
+            <Btn variant="soft" className="mt-2 h-11 w-full" onClick={async () => { await pushNow(); setSyncMsg(syncState.status === 'ok' ? 'Сохранено в облако ✓' : `⚠️ ${syncErrorText(syncState.lastError)}`) }}>
               Сохранить сейчас
             </Btn>
             {syncMsg && <p className="mt-1 text-center text-xs font-bold text-emerald-600">{syncMsg}</p>}
