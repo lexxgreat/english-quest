@@ -1,0 +1,61 @@
+head|[hed]|голова|n|body|My head thinks fast.|Моя голова быстро думает.
+hair|[heə]|волосы|n|body|Her hair is long and black.|Её волосы длинные и чёрные.
+face|[feɪs]|лицо|n|body|Wash your face in the morning.|Умой лицо утром.
+eye|[aɪ]|глаз|n|body|We see with our eyes.|Мы видим глазами.
+ear|[ɪə]|ухо|n|body|We hear with our ears.|Мы слышим ушами.
+nose|[nəʊz]|нос|n|body|The dog has a wet nose.|У собаки мокрый нос.
+mouth|[maʊθ]|рот|n|body|Open your mouth and say "aah".|Открой рот и скажи «а-а-х».
+tooth|[tuːθ]|зуб|n|body|Brush your teeth twice a day.|Чисти зубы два раза в день.
+hand|[hænd]|рука, кисть|n|body|I write with my right hand.|Я пишу правой рукой.
+arm|[ɑːm]|рука (от плеча)|n|body|He holds the ball in his arms.|Он держит мяч в руках.
+leg|[leɡ]|нога|n|body|My legs are tired.|Мои ноги устали.
+foot|[fʊt]|ступня, нога|n|body|My left foot is bigger.|Моя левая ступня больше.
+finger|[ˈfɪŋɡə]|палец|n|body|I have ten fingers.|У меня десять пальцев.
+body|[ˈbɒdi]|тело|n|body|Exercise makes your body strong.|Упражнения делают тело сильным.
+strong|[strɒŋ]|сильный, крепкий|adj|body|The boy is strong.|Мальчик сильный.
+tall|[tɔːl]|высокий|adj|body|My dad is very tall.|Мой папа очень высокий.
+short|[ʃɔːt]|низкий, короткий|adj|body|The shorts are short.|Шорты короткие.
+long|[lɒŋ]|длинный, долгий|adj|body|The train is long.|Поезд длинный.
+beautiful|[ˈbjuːtɪfl]|красивый|adj|body|What a beautiful flower!|Какой красивый цветок!
+dirty|[ˈdɜːti]|грязный|adj|body|Your hands are dirty.|Твои руки грязные.
+easy|[ˈiːzi]|лёгкий, простой|adj|adjectives|This task is easy.|Это задание лёгкое.
+hard|[hɑːd]|трудный; твёрдый|adj|adjectives|This word is hard to say.|Это слово трудно произнести.
+fast|[fɑːst]|быстрый; быстро|adj|adjectives|My cat runs fast.|Мой кот бегает быстро.
+slow|[sləʊ]|медленный; медленно|adj|adjectives|The turtle is slow.|Черепаха медленная.
+early|[ˈɜːli]|ранний; рано|adj|adjectives|I get up early on Monday.|Я встаю рано в понедельник.
+late|[leɪt]|поздний; поздно|adj|adjectives|Don't be late for school!|Не опаздывай в школу!
+funny|[ˈfʌni]|смешной, забавный|adj|adjectives|The monkey is very funny.|Обезьяна очень смешная.
+clever|[ˈklevə]|умный, сообразительный|adj|adjectives|My dog is very clever.|Моя собака очень умная.
+kind|[kaɪnd]|добрый; вид|adj|adjectives|Be kind to animals.|Будь добр к животным.
+right|[raɪt]|правильный; правый|adj|adjectives|Your answer is right!|Твой ответ правильный!
+wrong|[rɒŋ]|неправильный; виноватый|adj|adjectives|It is the wrong way.|Это не та дорога.
+clothes|[kləʊðz]|одежда|n|clothes|Wash your clothes on Sunday.|Стирай свою одежду в воскресенье.
+shirt|[ʃɜːt]|рубашка|n|clothes|My shirt is white.|Моя рубашка белая.
+T-shirt|[ˈtiːʃɜːt]|футболка|n|clothes|I wear a T-shirt in summer.|Летом я ношу футболку.
+dress|[dres]|платье; одеваться|n|clothes|Her new dress is blue.|Её новое платье синее.
+trousers|[ˈtraʊzəz]|брюки, штаны|n|clothes|These trousers are too long.|Эти брюки слишком длинные.
+shoes|[ʃuːz]|обувь, туфли|n|clothes|Clean your shoes, please.|Почисти свою обувь, пожалуйста.
+socks|[sɒks]|носки|n|clothes|I can't find my socks.|Не могу найти носки.
+hat|[hæt]|шляпа, шапка|n|clothes|Put on your hat in winter.|Зимой надевай шапку.
+coat|[kəʊt]|пальто, куртка|n|clothes|It is cold — wear a coat.|Холодно — надень пальто.
+ball|[bɔːl]|мяч|n|fun|Kick the ball to me.|Пни мяч мне.
+game|[ɡeɪm]|игра|n|fun|This game is fun!|Эта игра весёлая!
+toy|[tɔɪ]|игрушка|n|fun|Put your toys in the box.|Положи игрушки в коробку.
+kite|[kaɪt]|воздушный змей|n|fun|Let's fly a kite in the park!|Давай запускать змея в парке!
+film|[fɪlm]|фильм, кино|n|fun|This film is about a dog.|Этот фильм о собаке.
+music|[ˈmjuːzɪk]|музыка|n|fun|I listen to music after school.|Я слушаю музыку после школы.
+song|[sɒŋ]|песня|n|fun|Sing your favourite song!|Спой свою любимую песню!
+dance|[dɑːns]|танцевать; танец|v|fun|We dance at the party.|Мы танцуем на вечеринке.
+phone|[fəʊn]|телефон|n|fun|My phone takes good photos.|Мой телефон делает хорошие фото.
+computer|[kəmˈpjuːtə]|компьютер|n|fun|I play games on the computer.|Я играю в игры на компьютере.
+photo|[ˈfəʊtəʊ]|фотография|n|fun|Show me the photo of your dog.|Покажи мне фото своей собаки.
+present|[ˈpreznt]|подарок; настоящий|n|fun|Thank you for the present!|Спасибо за подарок!
+party|[ˈpɑːti]|вечеринка|n|fun|My birthday party is on Saturday.|Мой день рождения в субботу.
+birthday|[ˈbɜːθdeɪ]|день рождения|n|fun|Happy birthday, my friend!|С днём рождения, друг!
+swim|[swɪm]|плавать|v|fun|Fish can swim.|Рыбы умеют плавать.
+fly|[flaɪ]|летать|v|fun|Birds fly south in autumn.|Птицы летят на юг осенью.
+ride|[raɪd]|ездить, кататься|v|fun|Can you ride a bike?|Ты умеешь ездить на велосипеде?
+laugh|[lɑːf]|смеяться|v|fun|We laugh at funny jokes.|Мы смеёмся над смешными шутками.
+cry|[kraɪ]|плакать|v|fun|Don't cry, it is OK.|Не плачь, всё хорошо.
+smile|[smaɪl]|улыбаться; улыбка|v|fun|Smile and be happy!|Улыбайся и будь счастлив!
+send|[send]|посылать, отправлять|v|verbs|Send me a photo, please.|Пришли мне фото, пожалуйста.

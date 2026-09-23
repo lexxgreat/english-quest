@@ -1,0 +1,61 @@
+mother|[ˈmʌðə]|мама, мать|n|family|My mother cooks very well.|Моя мама очень хорошо готовит.
+mum|[mʌm]|мама|n|family|Mum, where are my socks?|Мам, где мои носки?
+father|[ˈfɑːðə]|папа, отец|n|family|His father drives a bus.|Его папа водит автобус.
+dad|[dæd]|папа|n|family|Dad, can we play football?|Пап, мы можем поиграть в футбол?
+sister|[ˈsɪstə]|сестра|n|family|My sister is five years old.|Моей сестре пять лет.
+brother|[ˈbrʌðə]|брат|n|family|I have a little brother.|У меня есть младший брат.
+family|[ˈfæməli]|семья|n|family|Our family is big.|Наша семья большая.
+grandmother|[ˈɡrænmʌðə]|бабушка|n|family|My grandmother makes the best cakes.|Моя бабушка печёт лучшие торты.
+grandfather|[ˈɡrænfɑːðə]|дедушка|n|family|Grandfather tells funny stories.|Дедушка рассказывает смешные истории.
+son|[sʌn]|сын|n|family|Their son goes to school.|Их сын ходит в школу.
+daughter|[ˈdɔːtə]|дочь|n|family|Her daughter loves music.|Её дочь любит музыку.
+friend|[frend]|друг|n|family|My friend lives next door.|Мой друг живёт по соседству.
+boy|[bɔɪ]|мальчик|n|people|The boy is playing with a ball.|Мальчик играет с мячом.
+girl|[ɡɜːl]|девочка|n|people|The girl sings a song.|Девочка поёт песню.
+man|[mæn]|мужчина, человек|n|people|That man is my teacher.|Тот мужчина — мой учитель.
+woman|[ˈwʊmən]|женщина|n|people|The woman works in a shop.|Женщина работает в магазине.
+baby|[ˈbeɪbi]|малыш, ребёнок|n|people|The baby is sleeping.|Малыш спит.
+name|[neɪm]|имя|n|people|My name is Ann.|Меня зовут Аня.
+house|[haʊs]|дом, здание|n|home|Their house has a red door.|У их дома красная дверь.
+home|[həʊm]|дом, дома|n|home|I go home after school.|Я иду домой после школы.
+room|[ruːm]|комната|n|home|My room is small but nice.|Моя комната маленькая, но уютная.
+kitchen|[ˈkɪtʃɪn]|кухня|n|home|Mum is in the kitchen.|Мама на кухне.
+bedroom|[ˈbedruːm]|спальня|n|home|There are two beds in the bedroom.|В спальне две кровати.
+bathroom|[ˈbɑːθruːm]|ванная|n|home|The bathroom is next to the kitchen.|Ванная рядом с кухней.
+door|[dɔː]|дверь|n|home|Please close the door.|Пожалуйста, закрой дверь.
+window|[ˈwɪndəʊ]|окно|n|home|Open the window, please.|Открой окно, пожалуйста.
+table|[ˈteɪbl]|стол|n|home|The plate is on the table.|Тарелка на столе.
+chair|[tʃeə]|стул|n|home|Sit on this chair.|Сядь на этот стул.
+bed|[bed]|кровать, постель|n|home|I go to bed at nine.|Я ложусь спать в девять.
+sofa|[ˈsəʊfə]|диван|n|home|The cat sleeps on the sofa.|Кот спит на диване.
+lamp|[læmp]|лампа|n|home|Turn on the lamp, please.|Включи лампу, пожалуйста.
+box|[bɒks]|коробка, ящик|n|home|The toys are in the box.|Игрушки в коробке.
+key|[kiː]|ключ|n|home|I can't find my key.|Не могу найти свой ключ.
+cat|[kæt]|кот, кошка|n|animals|My cat likes milk.|Мой кот любит молоко.
+dog|[dɒɡ]|собака|n|animals|The dog plays in the garden.|Собака играет в саду.
+bird|[bɜːd]|птица|n|animals|A bird sings in the tree.|Птица поёт на дереве.
+fish|[fɪʃ]|рыба|n|animals|Fish swim in the river.|Рыбы плавают в реке.
+mouse|[maʊs]|мышь|n|animals|The mouse is very small.|Мышь очень маленькая.
+frog|[frɒɡ]|лягушка|n|animals|A frog can jump far.|Лягушка умеет прыгать далеко.
+horse|[hɔːs]|лошадь|n|animals|The horse runs fast.|Лошадь бегает быстро.
+cow|[kaʊ]|корова|n|animals|The cow gives milk.|Корова даёт молоко.
+pig|[pɪɡ]|свинья|n|animals|The pig is dirty.|Свинья грязная.
+duck|[dʌk]|утка|n|animals|Ducks swim in the pond.|Утки плавают в пруду.
+animal|[ˈænɪml]|животное|n|animals|A dog is a good animal.|Собака — хорошее животное.
+eat|[iːt]|есть, кушать|v|food|I eat bread and cheese.|Я ем хлеб и сыр.
+drink|[drɪŋk]|пить|v|food|Cats drink milk.|Коты пьют молоко.
+sleep|[sliːp]|спать|v|home|Children sleep at night.|Дети спят ночью.
+wash|[wɒʃ]|мыть, стирать|v|home|Wash your hands, please.|Помой руки, пожалуйста.
+clean|[kliːn]|чистить; чистый|v|home|I clean my room every day.|Я убираю свою комнату каждый день.
+open|[ˈəʊpən]|открывать; открытый|v|home|Open the box, please.|Открой коробку, пожалуйста.
+close|[kləʊz]|закрывать|v|home|Close your book.|Закрой книгу.
+put|[pʊt]|класть, ставить|v|verbs|Put the toys in the box.|Положи игрушки в коробку.
+take|[teɪk]|брать, взять|v|verbs|Take your bag.|Возьми свою сумку.
+give|[ɡɪv]|давать, давать|v|verbs|Give me an apple, please.|Дай мне яблоко, пожалуйста.
+bread|[bred]|хлеб|n|food|We buy fresh bread.|Мы покупаем свежий хлеб.
+milk|[mɪlk]|молоко|n|food|I drink milk in the morning.|Я пью молоко утром.
+water|[ˈwɔːtə]|вода|n|food|Drink more water!|Пей больше воды!
+apple|[ˈæpl]|яблоко|n|food|An apple a day is good for you.|Яблоко в день — это полезно.
+egg|[eɡ]|яйцо|n|food|I eat an egg for breakfast.|Я ем яйцо на завтрак.
+tea|[tiː]|чай|n|food|Grandma drinks tea with cake.|Бабушка пьёт чай с тортом.
+cake|[keɪk]|торт, пирожное|n|food|The birthday cake is big.|Торт на день рождения большой.

@@ -1,0 +1,61 @@
+city|[ˈsɪti]|город|n|world|Moscow is a big city.|Москва — большой город.
+street|[striːt]|улица|n|world|Our street is very quiet.|Наша улица очень тихая.
+park|[pɑːk]|парк|n|world|Children play in the park.|Дети играют в парке.
+shop|[ʃɒp]|магазин|n|world|This shop sells toys.|Этот магазин продаёт игрушки.
+garden|[ˈɡɑːdn]|сад, огород|n|world|Grandma grows flowers in the garden.|Бабушка выращивает цветы в саду.
+tree|[triː]|дерево|n|world|A big tree grows near our house.|Большое дерево растёт у нашего дома.
+flower|[ˈflaʊə]|цветок|n|world|This flower smells nice.|Этот цветок приятно пахнет.
+grass|[ɡrɑːs]|трава|n|world|Sit on the grass.|Сядь на траву.
+forest|[ˈfɒrɪst]|лес|n|world|Bears live in the forest.|Медведи живут в лесу.
+river|[ˈrɪvə]|река|n|world|We swim in the river in summer.|Летом мы плаваем в реке.
+sea|[siː]|море|n|world|The sea is warm today.|Море сегодня тёплое.
+sun|[sʌn]|солнце|n|weather|The sun is very bright.|Солнце очень яркое.
+moon|[muːn]|луна, лунa|n|weather|The moon is white.|Луна белая.
+star|[stɑː]|звезда|n|weather|Stars shine at night.|Звёзды светят ночью.
+sky|[skaɪ]|небо|n|weather|The sky is blue and clear.|Небо голубое и чистое.
+cloud|[klaʊd]|облако|n|weather|Look at that big cloud!|Посмотри на то большое облако!
+rain|[reɪn]|дождь; идёт дождь|n|weather|I like to listen to the rain.|Я люблю слушать дождь.
+snow|[snəʊ]|снег; идёт снег|n|weather|Children play in the snow.|Дети играют в снегу.
+wind|[wɪnd]|ветер|n|weather|The wind is strong today.|Ветер сегодня сильный.
+weather|[ˈweðə]|погода|n|weather|What is the weather like?|Какая сегодня погода?
+warm|[wɔːm]|тёплый|adj|weather|Spring is warm.|Весна тёплая.
+sunny|[ˈsʌni]|солнечный|adj|weather|It is sunny in July.|В июле солнечно.
+cloudy|[ˈklaʊdi]|облачный|adj|weather|It is cloudy but not cold.|Облачно, но не холодно.
+red|[red]|красный|adj|colors|The ball is red.|Мяч красный.
+blue|[bluː]|синий, голубой|adj|colors|The sky is blue.|Небо голубое.
+green|[ɡriːn]|зелёный|adj|colors|Frogs are green.|Лягушки зелёные.
+yellow|[ˈjeləʊ]|жёлтый|adj|colors|The sun looks yellow.|Солнце выглядит жёлтым.
+white|[waɪt]|белый|adj|colors|Snow is white.|Снег белый.
+black|[blæk]|чёрный|adj|colors|I have a black cat.|У меня чёрный кот.
+brown|[braʊn]|коричневый|adj|colors|The horse is brown.|Лошадь коричневая.
+orange|[ˈɒrɪndʒ]|оранжевый; апельсин|adj|colors|An orange is an orange fruit.|Апельсин — оранжевый фрукт.
+colour|[ˈkʌlə]|цвет|n|colors|What is your favourite colour?|Какой твой любимый цвет?
+car|[kɑː]|машина|n|transport|Dad's car is new.|Папина машина новая.
+bus|[bʌs]|автобус|n|transport|I go to school by bus.|Я езжу в школу на автобусе.
+train|[treɪn]|поезд|n|transport|The train is very long.|Поезд очень длинный.
+bike|[baɪk]|велосипед|n|transport|I ride my bike in the park.|Я катаюсь на велосипеде в парке.
+plane|[pleɪn]|самолёт|n|transport|Planes fly very high.|Самолёты летают очень высоко.
+road|[rəʊd]|дорога|n|transport|Don't play on the road!|Не играй на дороге!
+way|[weɪ]|путь, дорога|n|transport|This is the way to school.|Это дорога в школу.
+money|[ˈmʌni]|деньги|n|world|I save money for a new game.|Я коплю деньги на новую игру.
+food|[fuːd]|еда, пища|n|food|Italian food is tasty.|Итальянская еда вкусная.
+breakfast|[ˈbrekfəst]|завтрак|n|food|I have porridge for breakfast.|На завтрак я ем кашу.
+lunch|[lʌntʃ]|обед|n|food|School lunch is at one o'clock.|Школьный обед в час.
+dinner|[ˈdɪnə]|ужин|n|food|The family has dinner together.|Семья ужинает вместе.
+work|[wɜːk]|работа; работать|n|verbs|Dad works in an office.|Папа работает в офисе.
+rest|[rest]|отдых; отдыхать|v|verbs|Rest after school.|Отдохни после школы.
+wait|[weɪt]|ждать|v|verbs|Wait for me at the door.|Подожди меня у двери.
+find|[faɪnd]|находить|v|verbs|I can't find my pen.|Не могу найти ручку.
+try|[traɪ]|пробовать, стараться|v|verbs|Try again! You can do it!|Попробуй ещё! Ты сможешь!
+use|[juːz]|использовать|v|verbs|Can I use your ruler?|Можно воспользоваться твоей линейкой?
+make|[meɪk]|делать, создавать|v|verbs|Mum makes tasty cakes.|Мама делает вкусные торты.
+buy|[baɪ]|покупать|v|verbs|We buy bread every day.|Мы покупаем хлеб каждый день.
+live|[lɪv]|жить|v|verbs|Fish live in water.|Рыбы живут в воде.
+stop|[stɒp]|останавливаться; остановка|v|verbs|The bus stops near the park.|Автобус останавливается у парка.
+start|[stɑːt]|начинать(ся)|v|verbs|The film starts at six.|Фильм начинается в шесть.
+turn|[tɜːn]|поворачивать, вертеть|v|verbs|Turn left at the shop.|Поверни налево у магазина.
+holiday|[hɒˈlɪdeɪ]|каникулы, праздник|n|time|Summer holidays are long.|Летние каникулы длинные.
+show|[ʃəʊ]|показывать; шоу|v|verbs|Show me your drawing.|Покажи мне свой рисунок.
+meet|[miːt]|встречать, знакомиться|v|people|Meet my friend Tom!|Познакомься с моим другом Томом!
+call|[kɔːl]|звонить; звать|v|people|Call me after dinner.|Позвони мне после ужина.
+trip|[trɪp]|поездка, путешествие|n|transport|Our school trip is in May.|Наша школьная поездка в мае.

@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font);
+  background: linear-gradient(180deg, #fff7ed 0%, #ffffff 40%, #fff7ed 100%);
+  color: #1e293b;
+}
+
+#root { min-height: 100%; }
+
+/* Плавные появления */
+@keyframes pop-in {
+  0% { transform: scale(.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+@keyframes slide-up {
+  0% { transform: translateY(24px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.anim-pop { animation: pop-in .18s ease-out both; }
+.anim-shake { animation: shake .4s ease-in-out both; }
+.anim-slide { animation: slide-up .25s ease-out both; }
+.anim-bounce { animation: bounce-soft 1.6s ease-in-out infinite; }
+
+/* Скроллбар */
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-thumb { background: #fdba74; border-radius: 3px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* Безопасные отступы под «челку» и нижнюю панель iPhone */
+.safe-top { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+input, textarea { font-size: 16px; } /* против авто-зума на iOS */

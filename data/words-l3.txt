@@ -1,0 +1,60 @@
+school|[skuːl]|школа|n|school|I go to school by bus.|Я езжу в школу на автобусе.
+class|[klɑːs]|класс, урок|n|school|There are 20 pupils in our class.|В нашем классе 20 учеников.
+teacher|[ˈtiːtʃə]|учитель|n|school|Our teacher is very kind.|Наш учитель очень добрый.
+pupil|[ˈpjuːpl]|ученик|n|school|He is a good pupil.|Он хороший ученик.
+lesson|[ˈlesn]|урок, занятие|n|school|The English lesson starts at nine.|Урок английского начинается в девять.
+book|[bʊk]|книга|n|school|This book is very interesting.|Эта книга очень интересная.
+pen|[pen]|ручка|n|school|Give me your pen, please.|Дай мне свою ручку, пожалуйста.
+pencil|[ˈpensl]|карандаш|n|school|I draw with a pencil.|Я рисую карандашом.
+ruler|[ˈruːlə]|линейка|n|school|My ruler is 30 cm long.|Моя линейка длиной 30 см.
+bag|[bæɡ]|сумка, портфель|n|school|My bag is heavy today.|Мой портфель сегодня тяжёлый.
+page|[peɪdʒ]|страница|n|school|Open page ten, please.|Откройте страницу десять, пожалуйста.
+word|[wɜːd]|слово|n|school|Learn five new words every day.|Учи пять новых слов каждый день.
+question|[ˈkwestʃən]|вопрос|n|school|I have a question.|У меня есть вопрос.
+answer|[ˈɑːnsə]|ответ; отвечать|n|school|Your answer is correct!|Твой ответ правильный!
+draw|[drɔː]|рисовать|v|school|I draw funny animals.|Я рисую смешных животных.
+write|[raɪt]|писать|v|school|Write your name here.|Напиши своё имя здесь.
+read|[riːd]|читать|v|school|I read books every evening.|Я читаю книги каждый вечер.
+sing|[sɪŋ]|петь|v|school|We sing songs in class.|Мы поём песни в классе.
+count|[kaʊnt]|считать|v|school|Can you count to ten?|Ты умеешь считать до десяти?
+ask|[ɑːsk]|спрашивать|v|verbs|Ask your teacher for help.|Попроси учителя помочь.
+tell|[tel]|рассказывать|v|verbs|Tell me about your day.|Расскажи мне о своём дне.
+speak|[spiːk]|говорить|v|verbs|Do you speak English?|Ты говоришь по-английски?
+say|[seɪ]|сказать, говорить|v|verbs|Say it again, please.|Скажи это ещё раз, пожалуйста.
+see|[siː]|видеть|v|verbs|I see a big star.|Я вижу большую звезду.
+look|[lʊk]|смотреть, выглядеть|v|verbs|Look at this photo!|Посмотри на это фото!
+go|[ɡəʊ]|идти, ехать|v|verbs|Let's go home.|Пойдём домой.
+come|[kʌm]|приходить, приезжать|v|verbs|Come to my party!|Приходи на мою вечеринку!
+run|[rʌn]|бегать, бежать|v|verbs|Dogs run very fast.|Собаки бегают очень быстро.
+jump|[dʒʌmp]|прыгать|v|verbs|Frogs jump high.|Лягушки прыгают высоко.
+walk|[wɔːk]|гулять, ходить пешком|v|verbs|We walk in the park.|Мы гуляем в парке.
+sit|[sɪt]|сидеть|v|verbs|Sit down, please.|Сядь, пожалуйста.
+stand|[stænd]|стоять|v|verbs|Stand up, please.|Встань, пожалуйста.
+play|[pleɪ]|играть|v|fun|We play football after school.|Мы играем в футбол после школы.
+help|[help]|помогать; помощь|v|verbs|I help my mum.|Я помогаю маме.
+like|[laɪk]|нравиться, любить|v|verbs|I like ice cream.|Я люблю мороженое.
+want|[wɒnt]|хотеть|v|verbs|I want a new bike.|Я хочу новый велосипед.
+need|[niːd]|нуждаться, надо|v|verbs|I need your help.|Мне нужна твоя помощь.
+love|[lʌv]|любить; любовь|v|verbs|I love my family.|Я люблю свою семью.
+learn|[lɜːn]|учить, узнавать|v|school|We learn English words.|Мы учим английские слова.
+know|[nəʊ]|знать|v|verbs|I know this story.|Я знаю эту историю.
+think|[θɪŋk]|думать|v|verbs|I think it is a good idea.|Думаю, это хорошая идея.
+understand|[ˌʌndəˈstænd]|понимать|v|verbs|Do you understand this word?|Ты понимаешь это слово?
+remember|[rɪˈmembə]|помнить, вспоминать|v|verbs|I remember your birthday.|Я помню твой день рождения.
+day|[deɪ]|день|n|time|Today is a sunny day.|Сегодня солнечный день.
+week|[wiːk]|неделя|n|time|We have five school days in a week.|В неделе пять школьных дней.
+month|[mʌnθ]|месяц|n|time|A year has twelve months.|В году двенадцать месяцев.
+year|[jɪə]|год|n|time|Happy New Year!|С Новым годом!
+morning|[ˈmɔːnɪŋ]|утро|n|time|Good morning, teacher!|Доброе утро, учитель!
+evening|[ˈiːvnɪŋ]|вечер|n|time|We watch TV in the evening.|Вечером мы смотрим телевизор.
+night|[naɪt]|ночь|n|time|Good night, sleep well!|Доброй ночи, спи хорошо!
+today|[təˈdeɪ]|сегодня|adv|time|Today is my birthday.|Сегодня мой день рождения.
+tomorrow|[təˈmɒrəʊ]|завтра|adv|time|Tomorrow we go to the zoo.|Завтра мы идём в зоопарк.
+now|[naʊ]|сейчас, теперь|adv|time|It is time to go now.|Сейчас пора идти.
+always|[ˈɔːlweɪz]|всегда|adv|time|I always brush my teeth.|Я всегда чищу зубы.
+often|[ˈɒfn]|часто|adv|time|We often play in the park.|Мы часто играем в парке.
+sometimes|[ˈsʌmtaɪmz]|иногда|adv|time|Sometimes I read at night.|Иногда я читаю ночью.
+never|[ˈnevə]|никогда|adv|time|I never eat snow.|Я никогда не ем снег.
+here|[hɪə]|здесь, тут|adv|time|Come here, please.|Подойди сюда, пожалуйста.
+there|[ðeə]|там, туда|adv|time|The shop is over there.|Магазин вон там.
+well|[wel]|хорошо, отлично|adv|time|She sings very well.|Она поёт очень хорошо.

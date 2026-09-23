@@ -1,0 +1,82 @@
+the|[ðə]|артикль the|art|basics|The sun is big.|Солнце большое.
+and|[ənd]|и|conj|basics|Tom and Ann are friends.|Том и Энн — друзья.
+a|[ə]|артикль a|art|basics|I have a cat.|У меня есть кот.
+I|[aɪ]|я|pron|basics|I am ten years old.|Мне десять лет.
+you|[juː]|ты, вы|pron|basics|You are my best friend.|Ты мой лучший друг.
+he|[hiː]|он|pron|basics|He is my brother.|Он мой брат.
+she|[ʃiː]|она|pron|basics|She likes cats.|Ей нравятся коты.
+it|[ɪt]|это, оно|pron|basics|It is a big ball.|Это большой мяч.
+we|[wiː]|мы|pron|basics|We go to the park.|Мы идём в парк.
+they|[ðeɪ]|они|pron|basics|They are pupils.|Они ученики.
+my|[maɪ]|мой|pron|basics|My name is Max.|Меня зовут Макс.
+your|[jɔː]|твой, твой|pron|basics|What is your name?|Как тебя зовут?
+his|[hɪz]|его|pron|basics|His dog is small.|Его собака маленькая.
+her|[hɜː]|её|pron|basics|Her book is new.|Её книга новая.
+be|[biː]|быть|v|basics|I want to be strong.|Я хочу быть сильным.
+have|[hæv]|иметь, иметься|v|basics|I have two cats.|У меня два кота.
+do|[duː]|делать|v|basics|What do you do after school?|Чем ты занимаешься после школы?
+can|[kæn]|мочь, уметь|v|basics|I can swim very well.|Я умею очень хорошо плавать.
+this|[ðɪs]|это, этот|pron|basics|This is my ball.|Это мой мяч.
+that|[ðæt]|то, тот|pron|basics|That house is very old.|Тот дом очень старый.
+in|[ɪn]|в, внутри|prep|basics|The cat is in the box.|Кот в коробке.
+on|[ɒn]|на|prep|basics|The book is on the table.|Книга на столе.
+at|[æt]|у, при, в|prep|basics|I am at home now.|Я сейчас дома.
+to|[tuː]|к, в, на|prep|basics|Let's go to the zoo!|Пойдём в зоопарк!
+not|[nɒt]|не|adv|basics|It is not cold today.|Сегодня не холодно.
+yes|[jes]|да|adv|basics|Yes, I can do it!|Да, я могу это сделать!
+no|[nəʊ]|нет|adv|basics|No, thank you.|Нет, спасибо.
+hello|[həˈləʊ]|привет, здравствуй|phr|basics|Hello, my friend!|Привет, мой друг!
+goodbye|[ˌɡʊdˈbaɪ]|до свидания, пока|phr|basics|Goodbye, see you tomorrow!|До свидания, увидимся завтра!
+please|[pliːz]|пожалуйста|adv|basics|Give me the pen, please.|Дай мне ручку, пожалуйста.
+thank you|[θæŋk juː]|спасибо|phr|basics|Thank you for your help!|Спасибо за помощь!
+sorry|[ˈsɒri]|извини(те)|adj|basics|Sorry, I am late.|Извини, я опоздал.
+what|[wɒt]|что, какой|pron|basics|What is this?|Что это?
+who|[huː]|кто|pron|basics|Who is this boy?|Кто этот мальчик?
+where|[weə]|где, куда|adv|basics|Where is my bag?|Где моя сумка?
+when|[wen]|когда|adv|basics|When do you get up?|Когда ты встаёшь?
+why|[waɪ]|почему, зачем|adv|basics|Why are you sad?|Почему ты грустный?
+how|[haʊ]|как, каким образом|adv|basics|How are you?|Как дела?
+one|[wʌn]|один|num|basics|I have one brother.|У меня один брат.
+two|[tuː]|два|num|basics|Two apples, please.|Два яблока, пожалуйста.
+three|[θriː]|три|num|basics|Three cats sleep here.|Здесь спят три кота.
+four|[fɔː]|четыре|num|basics|Four birds fly high.|Четыре птицы летают высоко.
+five|[faɪv]|пять|num|basics|Give me five!|Дай пять!
+six|[sɪks]|шесть|num|basics|Six balls are in the box.|Шесть мячей в коробке.
+seven|[ˈsevn]|семь|num|basics|Seven days in a week.|В неделе семь дней.
+eight|[eɪt]|восемь|num|basics|Eight stars in the sky.|Восемь звёзд на небе.
+nine|[naɪn]|девять|num|basics|Nine is my lucky number.|Девять — моё счастливое число.
+ten|[ten]|десять|num|basics|I have ten candies.|У меня десять конфет.
+big|[bɪɡ]|большой|adj|basics|The dog is very big.|Собака очень большая.
+small|[smɔːl]|маленький|adj|basics|A small mouse runs there.|Там бежит маленькая мышь.
+good|[ɡʊd]|хороший, добрый|adj|basics|This is a good book.|Это хорошая книга.
+bad|[bæd]|плохой|adj|basics|The weather is bad today.|Сегодня плохая погода.
+new|[njuː]|новый|adj|basics|I have a new bike.|У меня новый велосипед.
+old|[əʊld]|старый|adj|basics|My grandpa is old but strong.|Мой дедушка старый, но сильный.
+hot|[hɒt]|горячий, жаркий|adj|basics|The tea is very hot.|Чай очень горячий.
+cold|[kəʊld]|холодный|adj|basics|Winter is cold.|Зима холодная.
+happy|[ˈhæpi]|счастливый, весёлый|adj|basics|I am happy today.|Сегодня я счастлив.
+sad|[sæd]|грустный|adj|basics|The film is a bit sad.|Фильм немного грустный.
+nice|[naɪs]|милый, приятный|adj|basics|What a nice day!|Какой хороший день!
+very|[ˈveri]|очень|adv|basics|It is very funny.|Это очень смешно.
+with|[wɪð]|с, вместе с|prep|basics|I play with my dog.|Я играю со своей собакой.
+for|[fɔː]|для, за|prep|basics|This present is for you.|Этот подарок для тебя.
+from|[frɒm]|из, от|prep|basics|I get a letter from grandma.|Я получаю письмо от бабушки.
+of|[əv]|чего-либо, кого-либо|prep|basics|A glass of water, please.|Стакан воды, пожалуйста.
+but|[bʌt]|но, а|conj|basics|The box is small but heavy.|Коробка маленькая, но тяжёлая.
+or|[ɔː]|или|conj|basics|Do you want tea or milk?|Ты хочешь чай или молоко?
+too|[tuː]|тоже, слишком|adv|basics|I like football too.|Я тоже люблю футбол.
+me|[miː]|мне, меня|pron|basics|Give the ball to me!|Дай мяч мне!
+up|[ʌp]|вверх, наверх|adv|basics|Stand up, please.|Встань, пожалуйста.
+down|[daʊn]|вниз|adv|basics|Sit down on the sofa.|Сядь на диван.
+out|[aʊt]|из, наружу|adv|basics|Let's go out and play!|Пойдём на улицу играть!
+all|[ɔːl]|все, всё|pron|basics|All my friends like this game.|Все мои друзья любят эту игру.
+our|[ˈaʊə]|наш|pron|basics|Our class is big.|Наш класс большой.
+us|[ʌs]|нам, нас|pron|basics|Come with us!|Пойдём с нами!
+them|[ðem]|им, их|pron|basics|I see them every day.|Я вижу их каждый день.
+him|[hɪm]|ему, его|pron|basics|Give the pen to him.|Дай ручку ему.
+after|[ˈɑːftə]|после|prep|basics|We play after school.|Мы играем после школы.
+then|[ðen]|потом, затем|adv|basics|First I read, then I sleep.|Сначала я читаю, потом сплю.
+every|[ˈevri]|каждый, всякий|adj|basics|I read every day.|Я читаю каждый день.
+first|[fɜːst]|первый|adj|basics|The first lesson is English.|Первый урок — английский.
+some|[sʌm]|несколько, немного|adj|basics|I want some water.|Я хочу немного воды.
+under|[ˈʌndə]|под|prep|basics|The cat is under the table.|Кот под столом.
