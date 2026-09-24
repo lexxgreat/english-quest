@@ -19,6 +19,9 @@ export type DailyWordResults = Record<number, { ok: number; fail: number }>
 /** План на день: фиксируется утром/при изменении, чтобы список на главной совпадал с уроком */
 export interface DayPlan { date: string; sig: string; newIds: number[]; revIds: number[] }
 
+/** Итог по предложению дня (наизусть: написать/сказать/родителю) */
+export interface SentenceResult { en: string; ok: boolean; mode: 'write' | 'speak' | 'parent'; hints: number }
+
 export interface Settings {
   dailyNew: number     // новых слов в день
   dailyReviews: number // повторений в день
@@ -36,6 +39,7 @@ export interface ProgressData {
   achievements: string[]
   daily: DailyCounter
   dailyWordResults: DailyWordResults
+  dailySentences: SentenceResult[]  // итог дня: предложения наизусть
   wordOrder: number[] | null   // пользовательский порядок очереди новых слов
   pinnedToday: number[]        // слова, закреплённые пользователем на сегодня
   wodPin: number | null        // слово дня, выбранное вручную
@@ -82,6 +86,7 @@ interface StoreState extends ProgressData {
   togglePinToday: (id: number) => void
   setWod: (id: number | null) => void
   setPlan: (p: DayPlan | null) => void
+  recordSentence: (en: string, ok: boolean, mode: 'write' | 'speak' | 'parent', hints: number) => void
   importData: (d: Partial<ProgressData>) => void
   ensureToday: () => void
 }
@@ -97,6 +102,7 @@ const defaultData = (): ProgressData => ({
   achievements: [],
   daily: emptyDaily(),
   dailyWordResults: {},
+  dailySentences: [],
   wordOrder: null,
   pinnedToday: [],
   wodPin: null,
@@ -115,7 +121,7 @@ export const useStore = create<StoreState>()(
 
       ensureToday: () => {
         const s = get()
-        if (s.daily.date !== todayStr()) set({ daily: emptyDaily(), dailyWordResults: {} })
+        if (s.daily.date !== todayStr()) set({ daily: emptyDaily(), dailyWordResults: {}, dailySentences: [] })
       },
 
       ensureWord: (id) => {
@@ -220,6 +226,12 @@ export const useStore = create<StoreState>()(
       setWod: (id) => set({ wodPin: id, updatedAt: Date.now() }),
       setPlan: (p) => set({ plan: p }),
 
+      recordSentence: (en, ok, mode, hints) => {
+        const s = get()
+        const rest = (s.dailySentences || []).filter(x => x.en !== en)
+        set({ dailySentences: [...rest, { en, ok, mode, hints }], updatedAt: Date.now() })
+      },
+
       importData: (d) => {
         const s = get()
         set({
@@ -233,6 +245,7 @@ export const useStore = create<StoreState>()(
           achievements: d.achievements ?? s.achievements,
           daily: d.daily ?? s.daily,
           dailyWordResults: d.dailyWordResults ?? s.dailyWordResults,
+          dailySentences: d.dailySentences ?? s.dailySentences,
           wordOrder: d.wordOrder ?? s.wordOrder,
           pinnedToday: d.pinnedToday ?? s.pinnedToday,
           wodPin: d.wodPin ?? s.wodPin,
@@ -243,9 +256,10 @@ export const useStore = create<StoreState>()(
     }),
     {
       name: 'english-quest-v1',
-      version: 2,
+      version: 3,
       migrate: (persisted: any) => ({
         dailyWordResults: {},
+        dailySentences: [],
         wordOrder: null,
         pinnedToday: [],
         wodPin: null,
@@ -267,7 +281,7 @@ export function addDays(dateStr: string, days: number): string {
 // Экспорт/импорт прогресса файлом
 export function exportProgress(): string {
   const s = useStore.getState()
-  return JSON.stringify({ app: 'english-quest', v: 1, exportedAt: new Date().toISOString(), data: { words: s.words, xp: s.xp, answered: s.answered, correct: s.correct, activeDays: s.activeDays, streak: s.streak, lastActive: s.lastActive, achievements: s.achievements, storiesRead: s.storiesRead, wordOrder: s.wordOrder, pinnedToday: s.pinnedToday, wodPin: s.wodPin } }, null, 2)
+  return JSON.stringify({ app: 'english-quest', v: 1, exportedAt: new Date().toISOString(), data: { words: s.words, xp: s.xp, answered: s.answered, correct: s.correct, activeDays: s.activeDays, streak: s.streak, lastActive: s.lastActive, achievements: s.achievements, storiesRead: s.storiesRead, wordOrder: s.wordOrder, pinnedToday: s.pinnedToday, wodPin: s.wodPin, dailySentences: s.dailySentences } }, null, 2)
 }
 
 export function downloadProgress() {

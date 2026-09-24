@@ -49,6 +49,7 @@ function snapshot() {
     lastActive: s.lastActive,
     achievements: s.achievements,
     daily: s.daily,
+    dailySentences: s.dailySentences || [],
     storiesRead: s.storiesRead,
     wordOrder: s.wordOrder,
     pinnedToday: s.pinnedToday,

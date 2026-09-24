@@ -25,7 +25,7 @@ export default function More({ go }: { go: (r: Route) => void }) {
           </button>
         ))}
       </div>
-      <p className="mt-6 text-center text-xs text-slate-300">English Quest v1.3 · учи по 10 минут в день — и через месяц говори!</p>
+      <p className="mt-6 text-center text-xs text-slate-300">English Quest v1.4 · учи по 10 минут в день — и через месяц говори!</p>
     </div>
   )
 }

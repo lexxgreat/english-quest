@@ -112,6 +112,46 @@ export function buildDailyQueue(): QueueItem[] {
   return items
 }
 
+/* ===================== Итог дня: предложения наизусть ===================== */
+
+export interface DaySentence { wordId: number; en: string; ru: string }
+
+/**
+ * Предложения итога дня: 2–3 коротких примера из слов сегодняшнего плана
+ * (сначала новые слова, затем повторения). Выучить наизусть → написать под
+ * диктовку или продиктовать вслух.
+ */
+export function daySentences(): DaySentence[] {
+  const plan = ensurePlan()
+  const ids = [...new Set([...plan.newIds, ...plan.revIds])].filter(id => WORD_BY_ID.has(id))
+  const out: DaySentence[] = []
+  const seen = new Set<string>()
+
+  const push = (wordId: number, ex: { en: string; ru: string }): boolean => {
+    const key = ex.en.toLowerCase().replace(/[^a-z']/g, ' ').replace(/\s+/g, ' ').trim()
+    if (!key || seen.has(key)) return false
+    // больше 12 слов наизусть не берём — посильно, но не перегруз
+    if (ex.en.split(/\s+/).length > 12) return false
+    seen.add(key)
+    out.push({ wordId, en: ex.en, ru: ex.ru })
+    return true
+  }
+
+  // По одному (первому) примеру от каждого слова плана
+  for (const id of ids) {
+    if (out.length >= 3) break
+    const w = WORD_BY_ID.get(id)!
+    if (w.ex[0]) push(id, w.ex[0])
+  }
+  // Меньше двух — добираем вторыми примерами уже использованных слов
+  for (const id of ids) {
+    if (out.length >= 2) break
+    const w = WORD_BY_ID.get(id)!
+    for (const ex of w.ex.slice(1)) if (push(id, ex)) break
+  }
+  return out
+}
+
 /** Свободная тренировка выбранным режимом */
 export function buildModeQueue(kind: 'quiz_en_ru' | 'quiz_ru_en' | 'listen' | 'spell' | 'cards', count = 12): QueueItem[] {
   if (kind === 'cards') {

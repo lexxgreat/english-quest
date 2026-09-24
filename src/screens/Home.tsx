@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useStore, todayStr, learnedCount, dueWords } from '../lib/store'
 import { levelInfo } from '../lib/gamification'
 import { WORDS, LEVELS, wordById, Word } from '../lib/words'
-import { ensurePlan, wordOfTheDay } from '../lib/srs'
+import { ensurePlan, daySentences, DaySentence, wordOfTheDay } from '../lib/srs'
 import { Card, Bar, Chip, Btn, AudioBtn, WordDetail, Sheet } from '../components/ui'
 import { InstallCard } from '../components/InstallCard'
 import { Route } from '../App'
@@ -14,6 +14,8 @@ export default function Home({ go }: { go: (r: Route) => void }) {
   const due = dueWords(words).length
   const [detail, setDetail] = useState<number | null>(null)
   const [wodPicker, setWodPicker] = useState(false)
+  const [sents, setSents] = useState<DaySentence[]>([])
+  const sentResults = useStore(s => s.dailySentences)
 
   useEffect(() => {
     useStore.getState().ensureToday()
@@ -21,7 +23,10 @@ export default function Home({ go }: { go: (r: Route) => void }) {
   }, [])
 
   // План на день: единый список для превью и урока; пересобирается при смене закреплений/настроек
-  useEffect(() => { ensurePlan() }, [pinnedToday, settings.dailyNew, settings.dailyReviews])
+  useEffect(() => {
+    ensurePlan()
+    setSents(daySentences())
+  }, [pinnedToday, settings.dailyNew, settings.dailyReviews])
 
   const t = todayStr()
   const today = daily.date === t ? daily : { newDone: 0, revDone: 0, answers: 0, correct: 0, date: t }
@@ -110,6 +115,41 @@ export default function Home({ go }: { go: (r: Route) => void }) {
             <p className="mt-3 rounded-2xl bg-slate-50 px-3 py-2 text-[11px] font-semibold text-slate-400">
               Послушай и посмотри слова до урока. После урока здесь появится, что усвоено ✅
             </p>
+            {sents.length > 0 && (
+              <div className="mt-3 rounded-2xl bg-orange-50/70 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase tracking-wide text-orange-400">🏁 Итог дня — предложения наизусть</span>
+                  <span className="text-xs font-bold text-slate-400">
+                    {sents.filter(s => (sentResults || []).some(r => r.en === s.en && r.ok)).length}/{sents.length}
+                  </span>
+                </div>
+                <div className="mt-2 flex flex-col gap-1.5">
+                  {sents.map(s => {
+                    const done = (sentResults || []).some(r => r.en === s.en && r.ok)
+                    return (
+                      <div key={s.en} className="flex items-center gap-2.5 rounded-2xl bg-white p-2.5">
+                        <AudioBtn word={s.en} size="sm" />
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm font-semibold text-slate-700">{s.en}</span>
+                          <span className="block truncate text-xs text-slate-400">{s.ru}</span>
+                        </span>
+                        <span className="shrink-0 text-sm" title={done ? 'Сдано' : 'Ещё не сдано'}>{done ? '✅' : '⬜'}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+                {(() => {
+                  const allDone = sents.every(s => (sentResults || []).some(r => r.en === s.en && r.ok))
+                  return allDone ? (
+                    <p className="mt-2 text-center text-xs font-bold text-emerald-600">Предложения сданы — молодец! 🎉</p>
+                  ) : (
+                    <Btn variant="soft" className="mt-2 h-11 w-full" onClick={() => { window.location.hash = `/lesson?phase=summary&r=${Date.now()}` }}>
+                      🎤 Продиктовать или написать
+                    </Btn>
+                  )
+                })()}
+              </div>
+            )}
           </>
         )}
       </Card>
