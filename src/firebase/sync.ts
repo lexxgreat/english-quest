@@ -50,6 +50,9 @@ function snapshot() {
     achievements: s.achievements,
     daily: s.daily,
     storiesRead: s.storiesRead,
+    wordOrder: s.wordOrder,
+    pinnedToday: s.pinnedToday,
+    wodPin: s.wodPin,
     updatedAt: s.updatedAt,
     deviceCode: s.deviceCode,
   }

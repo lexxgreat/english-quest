@@ -1,20 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useStore, todayStr, learnedCount, dueWords } from '../lib/store'
 import { levelInfo } from '../lib/gamification'
-import { WORDS, LEVELS, wordById } from '../lib/words'
-import { Card, Bar, Chip, Btn, AudioBtn } from '../components/ui'
+import { WORDS, LEVELS, wordById, Word } from '../lib/words'
+import { ensurePlan, wordOfTheDay } from '../lib/srs'
+import { Card, Bar, Chip, Btn, AudioBtn, WordDetail, Sheet } from '../components/ui'
 import { Route } from '../App'
 
 export default function Home({ go }: { go: (r: Route) => void }) {
-  const { xp, streak, words, daily, settings, storiesRead, touchDay } = useStore()
+  const { xp, streak, words, daily, settings, storiesRead, touchDay, plan, pinnedToday } = useStore()
   const lvl = levelInfo(xp)
   const learned = learnedCount(words)
   const due = dueWords(words).length
+  const [detail, setDetail] = useState<number | null>(null)
+  const [wodPicker, setWodPicker] = useState(false)
 
   useEffect(() => {
     useStore.getState().ensureToday()
     touchDay()
   }, [])
+
+  // План на день: единый список для превью и урока; пересобирается при смене закреплений/настроек
+  useEffect(() => { ensurePlan() }, [pinnedToday, settings.dailyNew, settings.dailyReviews])
 
   const t = todayStr()
   const today = daily.date === t ? daily : { newDone: 0, revDone: 0, answers: 0, correct: 0, date: t }
@@ -24,9 +30,13 @@ export default function Home({ go }: { go: (r: Route) => void }) {
   const totalGoal = newGoal + revGoal
   const done = Math.min(1, (today.newDone + today.revDone) / totalGoal)
 
-  // Слово дня — детерминировано по дате
-  const dayIdx = (Number(t.replace(/-/g, '')) % WORDS.length)
-  const wotd = wordById(dayIdx + 1)!
+  // Слово дня — из самых употребимых, либо закреплённое пользователем
+  const wotd = wordOfTheDay()
+
+  const todayPlan = plan && plan.date === t ? plan : null
+  const planNew = (todayPlan?.newIds || []).filter(id => wordById(id))
+  const planRev = (todayPlan?.revIds || []).filter(id => wordById(id) && !planNew.includes(id))
+  const planCount = planNew.length + planRev.length
 
   return (
     <div className="px-4 pt-6">
@@ -71,6 +81,35 @@ export default function Home({ go }: { go: (r: Route) => void }) {
         )}
       </Card>
 
+      {/* Слова на сегодня: сначала ознакомься, потом урок */}
+      <Card className="mb-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-black text-slate-800">📋 Слова на сегодня</h2>
+          <button onClick={() => go('plan')} className="text-xs font-bold text-orange-500 active:opacity-60">
+            план слов ›
+          </button>
+        </div>
+        {planCount === 0 ? (
+          <p className="mt-3 text-sm text-slate-400">На сегодня слов нет — молодец, всё выучено! 🎉</p>
+        ) : (
+          <>
+            {planNew.length > 0 && (
+              <div className="mt-3 flex flex-col gap-1.5">
+                {planNew.map(id => <PlanRow key={`n${id}`} id={id} tag="new" onOpen={() => setDetail(id)} />)}
+              </div>
+            )}
+            {planRev.length > 0 && (
+              <div className="mt-2 flex flex-col gap-1.5">
+                {planRev.map(id => <PlanRow key={`r${id}`} id={id} tag="rev" onOpen={() => setDetail(id)} />)}
+              </div>
+            )}
+            <p className="mt-3 rounded-2xl bg-slate-50 px-3 py-2 text-[11px] font-semibold text-slate-400">
+              Послушай и посмотри слова до урока. После урока здесь появится, что усвоено ✅
+            </p>
+          </>
+        )}
+      </Card>
+
       {/* Слово дня */}
       <Card className="mb-4">
         <div className="flex items-center gap-3">
@@ -81,9 +120,15 @@ export default function Home({ go }: { go: (r: Route) => void }) {
             <div className="truncate text-sm text-slate-500">{wotd.ru} · {wotd.ipa}</div>
           </div>
         </div>
-        <p className="mt-3 rounded-2xl bg-orange-50 px-4 py-2 text-sm font-semibold text-slate-600">
-          {wotd.ex[0].en} — <span className="text-slate-400">{wotd.ex[0].ru}</span>
-        </p>
+        <div className="mt-3 flex items-center gap-2 rounded-2xl bg-orange-50 px-3 py-2">
+          <p className="min-w-0 flex-1 text-sm font-semibold text-slate-600">
+            {wotd.ex[0].en} — <span className="text-slate-400">{wotd.ex[0].ru}</span>
+          </p>
+          <AudioBtn word={wotd.ex[0].en} size="sm" />
+        </div>
+        <button onClick={() => setWodPicker(true)} className="mt-2 w-full text-center text-xs font-bold text-orange-400 active:opacity-60">
+          ✏️ выбрать своё слово дня
+        </button>
       </Card>
 
       {/* Быстрые кнопки */}
@@ -133,7 +178,89 @@ export default function Home({ go }: { go: (r: Route) => void }) {
           <span className="text-3xl">→</span>
         </div>
       </button>
+
+      <WordDetail wordId={detail} onClose={() => setDetail(null)} />
+      <WodPicker open={wodPicker} onClose={() => setWodPicker(false)} />
     </div>
+  )
+}
+
+/* ---------- Строка «слов на сегодня» ---------- */
+
+function PlanRow({ id, tag, onOpen }: { id: number; tag: 'new' | 'rev'; onOpen: () => void }) {
+  const w = wordById(id)!
+  const res = useStore(s => (s.dailyWordResults || {})[id])
+  const learnedToday = (res?.ok || 0) > 0
+  const failedToday = (res?.fail || 0) > 0 && !learnedToday
+  return (
+    <button onClick={onOpen} className="flex w-full items-center gap-2.5 rounded-2xl bg-slate-50 p-2.5 text-left active:bg-orange-50">
+      <AudioBtn word={w.en} size="sm" />
+      <span className="min-w-0 flex-1">
+        <span className="flex items-baseline gap-2">
+          <span className="truncate text-sm font-black text-slate-800">{w.en}</span>
+          <span className="truncate text-[11px] text-slate-400">{w.ipa}</span>
+        </span>
+        <span className="block truncate text-xs text-slate-400">{w.ru}</span>
+      </span>
+      {learnedToday && <span className="shrink-0 text-sm" title="Усвоено сегодня">✅</span>}
+      {failedToday && <span className="shrink-0 text-sm" title="Была ошибка">⚠️</span>}
+      <span className="shrink-0 text-[10px] font-bold text-slate-300">{tag === 'new' ? '🌱' : '🔁'}</span>
+    </button>
+  )
+}
+
+/* ---------- Выбор своего слова дня ---------- */
+
+function WodPicker({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [q, setQ] = useState('')
+  const wodPin = useStore(s => s.wodPin)
+  const setWod = useStore(s => s.setWod)
+  const list = useMemo(() => {
+    const query = q.trim().toLowerCase()
+    return WORDS.filter(w => !query || w.en.toLowerCase().includes(query) || w.ru.toLowerCase().includes(query)).slice(0, 60)
+  }, [q])
+
+  function pick(w: Word) {
+    setWod(w.id)
+    onClose()
+  }
+
+  return (
+    <Sheet open={open} onClose={onClose}>
+      <h2 className="mb-1 pr-10 text-lg font-black text-slate-800">✏️ Слово дня</h2>
+      <p className="mb-3 text-xs text-slate-400">Выбери любое слово из словаря — оно появится на главной.</p>
+      <div className="mb-2 flex gap-2">
+        <input
+          value={q}
+          onChange={e => setQ(e.target.value)}
+          placeholder="Поиск слова…"
+          className="h-11 flex-1 rounded-2xl border-2 border-slate-200 px-3 text-sm font-semibold outline-none focus:border-orange-400"
+        />
+        <Btn variant="soft" className="h-11" onClick={() => {
+          const pool = WORDS.filter(w => w.level <= 2)
+          pick(pool[Math.floor(Math.random() * pool.length)])
+        }}>🎲</Btn>
+      </div>
+      {wodPin && (
+        <button onClick={() => { setWod(null); onClose() }} className="mb-2 w-full rounded-2xl bg-slate-50 py-2 text-xs font-bold text-slate-500 active:bg-slate-100">
+          ↩️ вернуть автоматическое слово дня
+        </button>
+      )}
+      <div className="flex max-h-[50vh] flex-col gap-1.5 overflow-y-auto">
+        {list.map(w => (
+          <button key={w.id} onClick={() => pick(w)}
+            className={`flex items-center gap-2.5 rounded-2xl p-2.5 text-left active:bg-orange-50 ${wodPin === w.id ? 'bg-orange-50' : 'bg-white'}`}>
+            <span onClick={e => e.stopPropagation()}><AudioBtn word={w.en} size="sm" /></span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-black text-slate-800">{w.en}</span>
+              <span className="block truncate text-xs text-slate-400">{w.ru}</span>
+            </span>
+            {wodPin === w.id && <span className="text-xs font-bold text-orange-500">текущее</span>}
+          </button>
+        ))}
+        {!list.length && <p className="py-6 text-center text-sm text-slate-400">Не нашлось 🤷</p>}
+      </div>
+    </Sheet>
   )
 }
 

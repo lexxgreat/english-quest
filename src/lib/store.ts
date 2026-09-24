@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { WORDS } from './words'
 
 export interface WordProgress {
   box: number          // 0 = новое, 1..5 = ящик Лейтнера
@@ -11,6 +12,12 @@ export interface WordProgress {
 }
 
 export interface DailyCounter { date: string; newDone: number; revDone: number; answers: number; correct: number }
+
+/** Итоги ответов за сегодня (по слову) — для проверки родителем */
+export type DailyWordResults = Record<number, { ok: number; fail: number }>
+
+/** План на день: фиксируется утром/при изменении, чтобы список на главной совпадал с уроком */
+export interface DayPlan { date: string; sig: string; newIds: number[]; revIds: number[] }
 
 export interface Settings {
   dailyNew: number     // новых слов в день
@@ -28,6 +35,11 @@ export interface ProgressData {
   lastActive: string | null
   achievements: string[]
   daily: DailyCounter
+  dailyWordResults: DailyWordResults
+  wordOrder: number[] | null   // пользовательский порядок очереди новых слов
+  pinnedToday: number[]        // слова, закреплённые пользователем на сегодня
+  wodPin: number | null        // слово дня, выбранное вручную
+  plan: DayPlan | null
   storiesRead: string[]
   updatedAt: number
 }
@@ -65,6 +77,11 @@ interface StoreState extends ProgressData {
   setSettings: (s: Partial<Settings>) => void
   setTtsRate: (r: number) => void
   setCloudSynced: () => void
+  setWordOrder: (order: number[] | null) => void
+  moveWordInQueue: (id: number, dir: -1 | 1) => void
+  togglePinToday: (id: number) => void
+  setWod: (id: number | null) => void
+  setPlan: (p: DayPlan | null) => void
   importData: (d: Partial<ProgressData>) => void
   ensureToday: () => void
 }
@@ -79,6 +96,11 @@ const defaultData = (): ProgressData => ({
   lastActive: null,
   achievements: [],
   daily: emptyDaily(),
+  dailyWordResults: {},
+  wordOrder: null,
+  pinnedToday: [],
+  wodPin: null,
+  plan: null,
   storiesRead: [],
   updatedAt: Date.now(),
 })
@@ -93,7 +115,7 @@ export const useStore = create<StoreState>()(
 
       ensureToday: () => {
         const s = get()
-        if (s.daily.date !== todayStr()) set({ daily: emptyDaily() })
+        if (s.daily.date !== todayStr()) set({ daily: emptyDaily(), dailyWordResults: {} })
       },
 
       ensureWord: (id) => {
@@ -110,6 +132,7 @@ export const useStore = create<StoreState>()(
         const w = s.words[id] || { box: 0, due: null, seen: 0, ok: 0, wrong: 0, introduced: true }
         const nextBox = correct ? Math.min(5, boxBefore + 1) : 1
         const due = nextBox === 1 && !correct ? todayStr() : addDays(todayStr(), INTERVALS[nextBox])
+        const dwr = s.daily.date === todayStr() ? s.dailyWordResults : {}
         set({
           words: {
             ...s.words,
@@ -117,6 +140,7 @@ export const useStore = create<StoreState>()(
           },
           answered: s.answered + 1,
           correct: s.correct + (correct ? 1 : 0),
+          dailyWordResults: { ...dwr, [id]: { ok: (dwr[id]?.ok || 0) + (correct ? 1 : 0), fail: (dwr[id]?.fail || 0) + (correct ? 0 : 1) } },
           updatedAt: Date.now(),
         })
         // XP: за правильный ответ, бонус за сложные режимы начисляется снаружи
@@ -175,6 +199,27 @@ export const useStore = create<StoreState>()(
       setTtsRate: (r) => set((s) => ({ settings: { ...s.settings, ttsRate: r } })),
       setCloudSynced: () => set({ cloudSyncedAt: Date.now() }),
 
+      setWordOrder: (order) => set({ wordOrder: order, updatedAt: Date.now() }),
+
+      moveWordInQueue: (id, dir) => {
+        const s = get()
+        const base = [...(s.wordOrder ?? WORDS.map(w => w.id))]
+        const i = base.indexOf(id)
+        const j = i + dir
+        if (i < 0 || j < 0 || j >= base.length) return
+        ;[base[i], base[j]] = [base[j], base[i]]
+        set({ wordOrder: base, updatedAt: Date.now() })
+      },
+
+      togglePinToday: (id) => {
+        const s = get()
+        const has = s.pinnedToday.includes(id)
+        set({ pinnedToday: has ? s.pinnedToday.filter(x => x !== id) : [...s.pinnedToday, id], updatedAt: Date.now() })
+      },
+
+      setWod: (id) => set({ wodPin: id, updatedAt: Date.now() }),
+      setPlan: (p) => set({ plan: p }),
+
       importData: (d) => {
         const s = get()
         set({
@@ -187,6 +232,10 @@ export const useStore = create<StoreState>()(
           lastActive: d.lastActive ?? s.lastActive,
           achievements: d.achievements ?? s.achievements,
           daily: d.daily ?? s.daily,
+          dailyWordResults: d.dailyWordResults ?? s.dailyWordResults,
+          wordOrder: d.wordOrder ?? s.wordOrder,
+          pinnedToday: d.pinnedToday ?? s.pinnedToday,
+          wodPin: d.wodPin ?? s.wodPin,
           storiesRead: d.storiesRead ?? s.storiesRead,
           updatedAt: Date.now(),
         })
@@ -194,7 +243,15 @@ export const useStore = create<StoreState>()(
     }),
     {
       name: 'english-quest-v1',
-      version: 1,
+      version: 2,
+      migrate: (persisted: any) => ({
+        dailyWordResults: {},
+        wordOrder: null,
+        pinnedToday: [],
+        wodPin: null,
+        plan: null,
+        ...persisted,
+      }),
     },
   ),
 )
@@ -210,7 +267,7 @@ export function addDays(dateStr: string, days: number): string {
 // Экспорт/импорт прогресса файлом
 export function exportProgress(): string {
   const s = useStore.getState()
-  return JSON.stringify({ app: 'english-quest', v: 1, exportedAt: new Date().toISOString(), data: { words: s.words, xp: s.xp, answered: s.answered, correct: s.correct, activeDays: s.activeDays, streak: s.streak, lastActive: s.lastActive, achievements: s.achievements, storiesRead: s.storiesRead } }, null, 2)
+  return JSON.stringify({ app: 'english-quest', v: 1, exportedAt: new Date().toISOString(), data: { words: s.words, xp: s.xp, answered: s.answered, correct: s.correct, activeDays: s.activeDays, streak: s.streak, lastActive: s.lastActive, achievements: s.achievements, storiesRead: s.storiesRead, wordOrder: s.wordOrder, pinnedToday: s.pinnedToday, wodPin: s.wodPin } }, null, 2)
 }
 
 export function downloadProgress() {

@@ -9,7 +9,7 @@ it|[ɪt]|это, оно|pron|basics|It is a big ball.|Это большой мя
 we|[wiː]|мы|pron|basics|We go to the park.|Мы идём в парк.
 they|[ðeɪ]|они|pron|basics|They are pupils.|Они ученики.
 my|[maɪ]|мой|pron|basics|My name is Max.|Меня зовут Макс.
-your|[jɔː]|твой, твой|pron|basics|What is your name?|Как тебя зовут?
+your|[jɔː]|твой, ваш|pron|basics|What is your name?|Как тебя зовут?
 his|[hɪz]|его|pron|basics|His dog is small.|Его собака маленькая.
 her|[hɜː]|её|pron|basics|Her book is new.|Её книга новая.
 be|[biː]|быть|v|basics|I want to be strong.|Я хочу быть сильным.

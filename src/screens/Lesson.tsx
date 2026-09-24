@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { wordById, WORDS, shuffle, sample, normalize } from '../lib/words'
+import { wordById, WORDS, shuffle, sample, normalize, Word } from '../lib/words'
 import { speak } from '../lib/tts'
 import { useStore } from '../lib/store'
 import { buildDailyQueue, buildModeQueue, QueueItem, unseenIds } from '../lib/srs'
@@ -23,6 +23,7 @@ export default function Lesson({ go }: { go: (r: Route) => void }) {
   const [idx, setIdx] = useState(0)
   const [session, setSession] = useState({ started: Date.now(), correct: 0, wrong: 0, xp: 0 })
   const [detail, setDetail] = useState<number | null>(null)
+  const [reviewIdx, setReviewIdx] = useState<number | null>(null) // просмотр предыдущих слов
   const againRef = useRef<number[]>([]) // слова для повторного показа в этой сессии
 
   const item = queue[idx]
@@ -39,6 +40,7 @@ export default function Lesson({ go }: { go: (r: Route) => void }) {
       // неверное слово вернётся в конце сессии (закрепление)
       againRef.current = [...againRef.current, item.wordId]
     }
+    setReviewIdx(null)
     setIdx(i => i + 1)
   }
 
@@ -52,6 +54,10 @@ export default function Lesson({ go }: { go: (r: Route) => void }) {
   const isNew = item.isNew && !wp?.introduced
   const boxBefore = wp?.box ?? 0
 
+  /** Открыть просмотр предыдущего слова (назад) */
+  const openReview = () => { if (idx > 0) setReviewIdx(idx - 1) }
+  const reviewWord = reviewIdx !== null ? wordById(queue[reviewIdx]?.wordId) : undefined
+
   return (
     <div className="px-4 pt-4">
       {/* Шапка сессии */}
@@ -63,19 +69,19 @@ export default function Lesson({ go }: { go: (r: Route) => void }) {
 
       <div key={`${idx}-${item.kind}`} className="anim-pop">
         {item.kind === 'intro' && (
-          <IntroCard w={w} onNext={() => next(true, isNew, boxBefore)} />
+          <IntroCard w={w} onNext={() => next(true, isNew, boxBefore)} onReview={openReview} canReview={idx > 0} />
         )}
         {item.kind === 'quiz_en_ru' && (
-          <Quiz w={w} dir="en_ru" onNext={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} />
+          <Quiz w={w} dir="en_ru" onAdvance={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} onReview={openReview} canReview={idx > 0} />
         )}
         {item.kind === 'quiz_ru_en' && (
-          <Quiz w={w} dir="ru_en" onNext={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} />
+          <Quiz w={w} dir="ru_en" onAdvance={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} onReview={openReview} canReview={idx > 0} />
         )}
         {item.kind === 'listen' && (
-          <Listen w={w} onNext={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} />
+          <Listen w={w} onAdvance={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} onReview={openReview} canReview={idx > 0} />
         )}
         {item.kind === 'spell' && (
-          <Spell w={w} onNext={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} />
+          <Spell w={w} onAdvance={(ok, bonus) => next(ok, isNew, boxBefore, bonus)} onReview={openReview} canReview={idx > 0} />
         )}
       </div>
 
@@ -83,13 +89,101 @@ export default function Lesson({ go }: { go: (r: Route) => void }) {
         что это слово значит? 🤔
       </button>
       <WordDetail wordId={detail} onClose={() => setDetail(null)} />
+
+      {/* Оверлей повторения предыдущих слов */}
+      {reviewWord && (
+        <ReviewCard
+          w={reviewWord}
+          canPrev={reviewIdx! > 0}
+          onPrev={() => setReviewIdx(i => (i !== null && i > 0 ? i - 1 : i))}
+          onClose={() => setReviewIdx(null)}
+        />
+      )}
+    </div>
+  )
+}
+
+/* ============ Панель разбора после неверного ответа: ждём «Дальше» ============ */
+
+function FeedbackPanel({ w, onAdvance, onReview, canReview }: {
+  w: Word; onAdvance: () => void; onReview: () => void; canReview: boolean
+}) {
+  return (
+    <div className="mt-4 anim-pop">
+      <Card className="!p-4">
+        <div className="flex items-center gap-3">
+          <AudioBtn word={w.en} size="md" />
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-xl font-black text-slate-800">{w.en}</div>
+            <div className="truncate text-xs text-slate-400">{w.ipa} · {w.ru}</div>
+          </div>
+          <AudioBtn word={w.en} size="sm" slow />
+        </div>
+        <div className="mt-3 rounded-2xl bg-orange-50 p-3">
+          {w.ex.map((e, i) => (
+            <div key={i} className={i ? 'mt-2' : ''}>
+              <div className="flex items-center gap-2">
+                <p className="flex-1 font-semibold text-slate-700">{e.en}</p>
+                <AudioBtn word={e.en} size="sm" />
+              </div>
+              <p className="text-sm text-slate-400">{e.ru}</p>
+            </div>
+          ))}
+        </div>
+      </Card>
+      <div className="mt-3 flex gap-2.5">
+        {canReview && <Btn variant="soft" className="h-14 flex-1 text-lg" onClick={onReview}>← Назад</Btn>}
+        <Btn className={`h-14 text-lg ${canReview ? 'flex-[2]' : 'w-full'}`} onClick={onAdvance}>Дальше →</Btn>
+      </div>
+    </div>
+  )
+}
+
+/* ============ Оверлей повторения предыдущего слова ============ */
+
+function ReviewCard({ w, onClose, onPrev, canPrev }: {
+  w: Word; onClose: () => void; onPrev: () => void; canPrev: boolean
+}) {
+  useEffect(() => { const t = setTimeout(() => speak(w.en, { slow: true }), 250); return () => clearTimeout(t) }, [])
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <div className="anim-slide relative w-full max-w-md rounded-t-3xl bg-white p-5 pb-8 shadow-2xl safe-bottom max-h-[80vh] overflow-y-auto">
+        <div className="mb-1 text-center text-xs font-bold uppercase tracking-wide text-orange-400">Повторяем слово</div>
+        <div className="flex items-center gap-3">
+          <AudioBtn word={w.en} size="lg" />
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-2xl font-black text-slate-800">{w.en}</div>
+            <div className="text-sm text-slate-400">{w.ipa}</div>
+          </div>
+          <AudioBtn word={w.en} slow size="sm" />
+        </div>
+        <div className="mt-2 text-xl font-black text-orange-600">{w.ru}</div>
+        <div className="mt-3 rounded-2xl bg-orange-50 p-4">
+          {w.ex.map((e, i) => (
+            <div key={i} className={i ? 'mt-2' : ''}>
+              <div className="flex items-center gap-2">
+                <p className="flex-1 font-semibold text-slate-700">{e.en}</p>
+                <AudioBtn word={e.en} size="sm" />
+              </div>
+              <p className="text-sm text-slate-400">{e.ru}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 flex gap-2.5">
+          {canPrev && <Btn variant="soft" className="h-12 flex-1" onClick={onPrev}>← Ещё назад</Btn>}
+          <Btn className={`h-12 ${canPrev ? 'flex-[2]' : 'w-full'}`} onClick={onClose}>Дальше →</Btn>
+        </div>
+      </div>
     </div>
   )
 }
 
 /* ============ Знакомство со словом (сначала звук, потом текст) ============ */
 
-function IntroCard({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: () => void }) {
+function IntroCard({ w, onNext, onReview, canReview }: {
+  w: ReturnType<typeof wordById>; onNext: () => void; onReview: () => void; canReview: boolean
+}) {
   const [stage, setStage] = useState<0 | 1>(0)
   const word = w!
 
@@ -117,13 +211,23 @@ function IntroCard({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: () =
             <AudioBtn word={word.en} size="md" slow />
           </div>
           <div className="mt-4 rounded-2xl bg-orange-50 p-4 text-left">
-            <p className="font-semibold text-slate-700">{word.ex[0].en}</p>
-            <p className="text-sm text-slate-400">{word.ex[0].ru}</p>
+            {word.ex.map((e, i) => (
+              <div key={i} className={i ? 'mt-3' : ''}>
+                <div className="flex items-center gap-2">
+                  <p className="flex-1 font-semibold text-slate-700">{e.en}</p>
+                  <AudioBtn word={e.en} size="sm" />
+                </div>
+                <p className="text-sm text-slate-400">{e.ru}</p>
+              </div>
+            ))}
           </div>
         </Card>
       )}
 
-      <Btn className="mt-5 h-14 w-full text-lg" onClick={onNext}>
+      {canReview && stage === 1 && (
+        <Btn variant="soft" className="mt-5 h-14 w-full text-lg" onClick={onReview}>← Повторить предыдущее</Btn>
+      )}
+      <Btn className="mt-3 h-14 w-full text-lg" onClick={onNext}>
         {stage === 0 ? 'Показать слово' : 'Понятно, дальше →'}
       </Btn>
     </div>
@@ -132,9 +236,13 @@ function IntroCard({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: () =
 
 /* ============ Квизы: выбор перевода ============ */
 
-function Quiz({ w, dir, onNext }: { w: ReturnType<typeof wordById>; dir: 'en_ru' | 'ru_en'; onNext: (ok: boolean, bonus?: number) => void }) {
+function Quiz({ w, dir, onAdvance, onReview, canReview }: {
+  w: ReturnType<typeof wordById>; dir: 'en_ru' | 'ru_en'
+  onAdvance: (ok: boolean, bonus?: number) => void; onReview: () => void; canReview: boolean
+}) {
   const word = w!
   const [picked, setPicked] = useState<number | null>(null)
+  const [awaitNext, setAwaitNext] = useState(false)
   const options = useMemo(() => {
     const distractIds = sample(WORDS.filter(x => x.id !== word.id), 3)
     return shuffle([word, ...distractIds])
@@ -146,11 +254,19 @@ function Quiz({ w, dir, onNext }: { w: ReturnType<typeof wordById>; dir: 'en_ru'
   function pick(id: number) {
     if (picked !== null) return
     setPicked(id)
-    if (id !== word.id) speak(word.en)
-    setTimeout(() => onNext(id === word.id, dir === 'en_ru' ? 0 : 1), id === word.id ? 650 : 1500)
+    const ok = id === word.id
+    if (ok) {
+      // правильно — сразу к следующему слову
+      setTimeout(() => onAdvance(true, dir === 'en_ru' ? 0 : 1), 650)
+    } else {
+      // неправильно — разбираем слово и ждём кнопку «Дальше»
+      speak(word.en)
+      setAwaitNext(true)
+    }
   }
 
   const done = picked !== null
+  const wrong = done && picked !== word.id
   return (
     <div>
       <p className="mb-3 text-center text-sm font-bold uppercase tracking-wide text-slate-400">
@@ -187,10 +303,16 @@ function Quiz({ w, dir, onNext }: { w: ReturnType<typeof wordById>; dir: 'en_ru'
           )
         })}
       </div>
-      {done && (
-        <p className="mt-4 text-center text-sm font-semibold text-slate-500 anim-pop">
-          {picked === word.id ? '🎉 Верно!' : `Запомни: ${word.en} = ${word.ru}`}
-        </p>
+      {done && !wrong && (
+        <p className="mt-4 text-center text-sm font-semibold text-slate-500 anim-pop">🎉 Верно!</p>
+      )}
+      {wrong && awaitNext && (
+        <FeedbackPanel
+          w={word}
+          canReview={canReview}
+          onReview={onReview}
+          onAdvance={() => onAdvance(false, dir === 'en_ru' ? 0 : 1)}
+        />
       )}
     </div>
   )
@@ -198,9 +320,13 @@ function Quiz({ w, dir, onNext }: { w: ReturnType<typeof wordById>; dir: 'en_ru'
 
 /* ============ Аудирование: услышь → выбери ============ */
 
-function Listen({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: boolean, bonus?: number) => void }) {
+function Listen({ w, onAdvance, onReview, canReview }: {
+  w: ReturnType<typeof wordById>
+  onAdvance: (ok: boolean, bonus?: number) => void; onReview: () => void; canReview: boolean
+}) {
   const word = w!
   const [picked, setPicked] = useState<number | null>(null)
+  const [awaitNext, setAwaitNext] = useState(false)
   const options = useMemo(() => sample(WORDS.filter(x => x.id !== word.id && x.topic === word.topic), 2)
     .concat(sample(WORDS.filter(x => x.id !== word.id && x.topic !== word.topic), 1))
     .concat([word]).slice(0, 4), [word.id])
@@ -214,10 +340,13 @@ function Listen({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: bo
   function pick(id: number) {
     if (picked !== null) return
     setPicked(id)
-    setTimeout(() => onNext(id === word.id, 2), id === word.id ? 650 : 1500)
+    const ok = id === word.id
+    if (ok) setTimeout(() => onAdvance(true, 2), 650)
+    else setAwaitNext(true)
   }
 
   const done = picked !== null
+  const wrong = done && picked !== word.id
   return (
     <div>
       <p className="mb-3 text-center text-sm font-bold uppercase tracking-wide text-slate-400">👂 Услышь слово</p>
@@ -241,11 +370,14 @@ function Listen({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: bo
           )
         })}
       </div>
-      {done && (
+      {done && !wrong && (
         <Card className="mt-4 anim-pop text-center">
           <div className="text-2xl font-black text-slate-800">{word.en}</div>
           <div className="text-xs text-slate-400">{word.ipa} · {word.ru}</div>
         </Card>
+      )}
+      {wrong && awaitNext && (
+        <FeedbackPanel w={word} canReview={canReview} onReview={onReview} onAdvance={() => onAdvance(false, 2)} />
       )}
     </div>
   )
@@ -253,7 +385,10 @@ function Listen({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: bo
 
 /* ============ Правописание: впиши слово ============ */
 
-function Spell({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: boolean, bonus?: number) => void }) {
+function Spell({ w, onAdvance, onReview, canReview }: {
+  w: ReturnType<typeof wordById>
+  onAdvance: (ok: boolean, bonus?: number) => void; onReview: () => void; canReview: boolean
+}) {
   const word = w!
   const [value, setValue] = useState('')
   const [checked, setChecked] = useState<null | boolean>(null)
@@ -267,8 +402,12 @@ function Spell({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: boo
     if (!value.trim() || checked !== null) return
     const ok = normalize(value) === normalize(word.en)
     setChecked(ok)
-    if (!ok) speak(word.en)
-    setTimeout(() => onNext(ok, ok ? Math.max(0, 4 - hintCount) : 0), ok ? 800 : 2200)
+    if (!ok) {
+      speak(word.en)
+      // неправильно — ждём кнопку «Дальше» (можно спокойно разобрать слово)
+    } else {
+      setTimeout(() => onAdvance(true, Math.max(0, 4 - hintCount)), 800)
+    }
   }
 
   function hint() {
@@ -290,9 +429,10 @@ function Spell({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: boo
       <input
         ref={inputRef}
         value={value}
-        onChange={e => { setValue(e.target.value); if (checked !== null) setChecked(null) }}
+        onChange={e => setValue(e.target.value)}
         onKeyDown={e => { if (e.key === 'Enter') check() }}
         placeholder="по-английски…"
+        disabled={checked !== null}
         autoCapitalize="off" autoCorrect="off" spellCheck={false}
         className={`mt-4 h-14 w-full rounded-2xl border-2 px-4 text-xl font-bold outline-none transition ${
           ok ? 'border-emerald-400 bg-emerald-50' : bad ? 'border-rose-400 bg-rose-50 anim-shake' : 'border-slate-200 bg-white focus:border-orange-400'
@@ -309,6 +449,9 @@ function Spell({ w, onNext }: { w: ReturnType<typeof wordById>; onNext: (ok: boo
       </div>
       {hintCount > 0 && checked === null && (
         <p className="mt-2 text-center text-xs text-slate-400">Открыто букв: {hintCount} из {word.en.length} · бонус уменьшается</p>
+      )}
+      {bad && (
+        <FeedbackPanel w={word} canReview={canReview} onReview={onReview} onAdvance={() => onAdvance(false, 0)} />
       )}
     </div>
   )

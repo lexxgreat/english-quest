@@ -3,6 +3,7 @@ import { Route } from '../App'
 
 const ITEMS: { route: Route; icon: string; title: string; desc: string }[] = [
   { route: 'rules', icon: '🔤', title: 'Читать правильно', desc: '14 правил английского чтения' },
+  { route: 'plan', icon: '📋', title: 'План слов', desc: 'Порядок изучения и слова на сегодня' },
   { route: 'ach', icon: '🏆', title: 'Ачивки', desc: 'Твои награды' },
   { route: 'settings', icon: '⚙️', title: 'Настройки и прогресс', desc: 'Цель, озвучка, облако, для родителей' },
 ]
@@ -24,7 +25,7 @@ export default function More({ go }: { go: (r: Route) => void }) {
           </button>
         ))}
       </div>
-      <p className="mt-6 text-center text-xs text-slate-300">English Quest v1.0 · учи по 10 минут в день — и через месяц говори!</p>
+      <p className="mt-6 text-center text-xs text-slate-300">English Quest v1.2 · учи по 10 минут в день — и через месяц говори!</p>
     </div>
   )
 }

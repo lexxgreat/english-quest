@@ -6,6 +6,7 @@ import PairsGame from './screens/PairsGame'
 import Stories from './screens/Stories'
 import Words from './screens/Words'
 import More from './screens/More'
+import Plan from './screens/Plan'
 import ReadingRules from './screens/ReadingRules'
 import Achievements from './screens/Achievements'
 import Settings from './screens/Settings'
@@ -16,7 +17,7 @@ import { setTtsRate } from './lib/tts'
 
 export type Route =
   | 'home' | 'train' | 'lesson' | 'pairs' | 'stories'
-  | 'words' | 'more' | 'rules' | 'ach' | 'settings'
+  | 'words' | 'more' | 'plan' | 'rules' | 'ach' | 'settings'
 
 const TAB_ROUTES: Route[] = ['home', 'train', 'stories', 'words', 'more']
 
@@ -78,6 +79,7 @@ export default function App() {
         {route === 'stories' && <Stories go={go} />}
         {route === 'words' && <Words />}
         {route === 'more' && <More go={go} />}
+        {route === 'plan' && <Plan go={go} />}
         {route === 'rules' && <ReadingRules go={go} />}
         {route === 'ach' && <Achievements go={go} />}
         {route === 'settings' && <Settings go={go} />}
