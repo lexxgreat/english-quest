@@ -4,6 +4,7 @@ import { levelInfo } from '../lib/gamification'
 import { WORDS, LEVELS, wordById, Word } from '../lib/words'
 import { ensurePlan, wordOfTheDay } from '../lib/srs'
 import { Card, Bar, Chip, Btn, AudioBtn, WordDetail, Sheet } from '../components/ui'
+import { InstallCard } from '../components/InstallCard'
 import { Route } from '../App'
 
 export default function Home({ go }: { go: (r: Route) => void }) {
@@ -80,6 +81,9 @@ export default function Home({ go }: { go: (r: Route) => void }) {
           </p>
         )}
       </Card>
+
+      {/* Предложение установить приложение (Chrome сам больше не предлагает) */}
+      <InstallCard variant="banner" />
 
       {/* Слова на сегодня: сначала ознакомься, потом урок */}
       <Card className="mb-4">

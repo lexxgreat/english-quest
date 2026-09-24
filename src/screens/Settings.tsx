@@ -7,6 +7,7 @@ import { boxDistribution } from '../lib/srs'
 import { levelInfo } from '../lib/gamification'
 import { WORDS } from '../lib/words'
 import { Btn, Card, Bar } from '../components/ui'
+import { InstallCard } from '../components/InstallCard'
 import { Route } from '../App'
 
 /** Понятная расшифровка ошибок синхронизации */
@@ -59,6 +60,9 @@ export default function Settings({ go }: { go: (r: Route) => void }) {
           <span>быстро</span>
         </div>
       </Card>
+
+      {/* Установка на телефон */}
+      <InstallCard variant="settings" />
 
       {/* Облако */}
       <Card className="mb-3">
